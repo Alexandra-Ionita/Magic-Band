@@ -1,64 +1,26 @@
 nume: Ionita Alexandra-Mihaela
-grupa: 314CB
 email: ionitaalexandra614@gmail.com
 
-                                         
-                  Structuri de Date si Algoritmi - Tema 1
-                              Banda Magica
+                                
+                              Magic Tape
 
+In this project, I designed and implemented a "Magic Tape" structure using a doubly linked list to 
+manage characters and a pointer ("finger") to track the current position on the tape. I created
+structures for a doubly linked list (the tape), a singly linked list for a command queue, and a
+stack for managing undo/redo operations. Each structure includes functions for creation, insertion,
+and memory management.
 
-        Pentru rezolvarea cerintelor am creat structurile corespunzatoare 
-unei liste dublu inlantuite, unei benzi magice, care are elemente de tip 
-lista dublu inlantuita ce retine caracterele benzii si un element numit deget,
-de tip lista dublu inlantuita, ce retine pozitia curenta a degetului. Am creat
-o structura pentru lista simplu inlantuita si o structura ce retine inceputul
-si sfarsitul acestei liste, formand astfel coada. Am creat o structura pentru
-stiva, ce contine elemente de tip lista dublu inlantuita, pentru a putea retine
-pointeri la anumite pozitii din banda, si elemente de tip TStiva ce retin
-elementul urmator al stivei. Pentru fiecare dintre structurile corespunzatoare
-listei dublu inlantuite, cozii, benzii si stivei am functii de implementare,
-distrugere, adaugare si distrugere.
-	    Pentru implementarea operatiilor de tip UPDATE, am folosit o coada ce 
-retine toate comenzile de acest tip, pana la momentul executarii lor. Fiecare
-astfel de comanda are functia ei:
-> In functia MOVE_LEFT am verificat daca pozitia
-curenta a degetului este pe prima celula, caz in care nu se schimba nimic. In caz
-contrar, se adauga in stiva un pointer la pozitia curenta a degetului, iar
-pointerul ce retine pozitia curenta se muta cu o pozitia la stanga.
-> In functia MOVE_RIGHT se adauga in stiva un pointer la pozitia curenta a degetului, 
-am verificat daca pozitia curenta este pe ultima celula a benzii, caz in care se 
-adauga la banda o celula ce contine caracterul #, iar degetul se muta pe el. In caz
-contrar, pointerul ce retine pozitia curenta se muta cu o pozitia la dreapta.
-> In functia MOVE_LEFT_CHAR am cautat de la stanga pozitiei degetului incolo
-celula cu caracterul x dat ca parametru. Daca nu a fost gasita, am afisat un mesaj
-de eroare, iar degetul nu si-a schimbat pozitia. Daca a fost gasita, degetul se muta
-pe acea celula.
-> In functia MOVE_RIGHT_CHAR am cautat de la dreapta pozitiei degetului incolo
-celula cu caracterul x dat ca parametru. Daca nu a fost gaista, adaug la sfarsitul
-benzii caracterul # si mut degetul pe celula corespunzatoare. Daca a fost gasita, degetul 
-se muta pe acea celula.
-> In functia WRITE am schimbat caracterul corespunzator celulei pe care se afla degetul
-cu caracterul x dat ca parametru.
-> In functia INSERT_LEFT am alocat o celula de tip TLista2 in care am adaugat
-caracterul x dat ca parametru. Am inserat celula in stanga celulei pozitiei degetului
-si am schimbat pozitia degetului pe aceasta.
-> In functia INSERT_RIGHT am alocat o celula de tip TLista2 in care am adaugat
-caracterul x dat ca parametru. Am inserat celula in dreapta celulei pozitiei degetului
-si am schimbat pozitia degetului pe aceasta.
-		Pentru implementarea operatiilor de tip QUERY, care se apeleaza direct,
-am folosit functii corespunzatoare:
-> Functia SHOW, care afiseaza toate elementele benzii, pozitia degetului
-fiind pusa intre |.
-> Functia SHOW_CURRENT, care afiseaza caracterul pe care se afla degetul.
-		Pentru implementarea operatiilor de tip UNDO/ REDO, care se fac direct cand 
-sunt intalnite, m-am folosit de stivele corespunzatoare. La intalnirea unei comenzi
-MOVE_RIGHT sau MOVE_LEFT adaug un pointer de la pozitia curenta a degetului in varful 
-stivei de UNDO. Pntru celelalte operatii de tip UPDATE eliberez ambele stive. Cand intalnesc 
-comanda UNDO extrag pointerul retinut în vârful stivei pentru UNDO folosind functia pop,
-adaug pointerul la pozitia curentă a degetului în vârful stivei pentru REDO folosidn push,
-după care modific pozitia degetului astfel încât să indice către pointerul
-extras din stiva pentru UNDO. Pentru REDO folosesc un algoritm asemanator.
-		La intalnirea comenzii EXECUTE, extrag un element din coada folosid functia
-ExtrQ si il execut.
-		Numarul comenzilor impreuna cu comenzile in sine sunt citite, pe rand,
-din fisier, iar outputul se pune tot intr-un fisier.
+To handle UPDATE commands, I used a queue to store commands until execution. Core functions include:
+
+MOVE_LEFT/RIGHT: Shifts the finger left or right, adjusting the tape if necessary.
+MOVE_LEFT_CHAR/RIGHT_CHAR: Moves to the nearest cell with a specified character or adds a placeholder 
+if not found.
+WRITE, INSERT_LEFT/RIGHT: Writes a character on the tape or inserts it to the left or right of the current 
+cell.
+I implemented QUERY functions directly to display tape contents (SHOW) or the current character 
+(SHOW_CURRENT). For UNDO/REDO, I used stacks to revert or reapply moves, pushing and popping pointers 
+to maintain tape state.
+
+The EXECUTE function extracts commands from the queue for execution. Commands are read from a file, 
+processed sequentially, and outputted to a designated file, demonstrating efficient handling of operations 
+on dynamic data structures with undo/redo capabilities.
